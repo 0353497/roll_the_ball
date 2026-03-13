@@ -12,6 +12,8 @@ import 'package:roll_the_ball/components/rotating_wall.dart';
 import 'package:roll_the_ball/models/game.dart';
 import 'package:roll_the_ball/models/player.dart';
 import 'package:roll_the_ball/models/rotating_wall.dart';
+import 'package:roll_the_ball/pages/homepage.dart';
+import 'package:roll_the_ball/pages/select_level_page.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class Gamepage extends StatefulWidget {
@@ -175,7 +177,22 @@ class _GamepageState extends State<Gamepage>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text("Homepage"),
+              onTap: () => Get.to(() => Homepage()),
+            ),
+            ListTile(
+              title: Text("level page"),
+              onTap: () => Get.to(() => SelectLevelPage()),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.transparent,
         title: Text(
           "Level ${widget.game.index}",
