@@ -195,9 +195,9 @@ class _GamepageState extends State<Gamepage>
 
           Positioned.fill(
             child: CustomPaint(
-              painter: MapPainter(points: widget.game.polygon.points),
+              painter: MapPainter(polygon: widget.game.polygon),
               child: ClipPath(
-                clipper: PolygonClipper(points: widget.game.polygon.points),
+                clipper: PolygonClipper(polygon: widget.game.polygon),
                 child: Image.asset(
                   "assets/bg-field.png",
                   repeat: ImageRepeat.repeatY,

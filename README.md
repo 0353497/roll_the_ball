@@ -107,3 +107,5 @@ nu heb je de snelheid met de juiste richting, en kun je de velocity van de spele
 $$ nieuweVelocity = oudeVelocity + (normaalVector * (afstand * wallNormalPush)) + (tangentialeVector * wallTangentialPush) $$
 
 en die nieuwe velocity overschrijf je huidige velocity van de speler mee, en zo wordt de speler mee getrokken door de muur.
+
+dit gaat VEEL verder dan MBO niveau, en ik ben best trots dat ik dit heb kunnen implementeren, want het was best een uitdaging om dit allemaal werkend te krijgen.

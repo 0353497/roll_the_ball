@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:roll_the_ball/models/polygon.dart';
 
 class MapPainter extends CustomPainter {
-  final List<Offset> points;
+  Polygon polygon;
+  final double cornerRadius;
 
-  MapPainter({super.repaint, required this.points});
+  MapPainter({super.repaint, required this.polygon, this.cornerRadius = 24});
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
@@ -14,12 +16,7 @@ class MapPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 10;
 
-    final Path path = Path();
-    path.moveTo(points.first.dx, points.first.dy);
-    for (var i = 0; i < points.length; i++) {
-      final Offset point = points[i];
-      path.lineTo(point.dx, point.dy);
-    }
+    final Path path = polygon.buildRoundedPath(16);
 
     canvas.drawPath(path, paint);
     canvas.drawPath(path, borderPaint);

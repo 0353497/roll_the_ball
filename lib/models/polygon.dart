@@ -43,4 +43,56 @@ class Polygon {
     bool isInside = (crossingCount % 2 == 1);
     return isInside;
   }
+
+  Path buildRoundedPath(double radius) {
+    final Path path = Path();
+    final List<Offset> vertices =
+        points.length > 1 && points.first == points.last
+        ? points.sublist(0, points.length - 1)
+        : points;
+
+    if (vertices.length < 3) {
+      if (vertices.isNotEmpty) {
+        path.moveTo(vertices.first.dx, vertices.first.dy);
+        for (var i = 1; i < vertices.length; i++) {
+          path.lineTo(vertices[i].dx, vertices[i].dy);
+        }
+      }
+      return path;
+    }
+
+    for (var i = 0; i < vertices.length; i++) {
+      final prev = vertices[(i - 1 + vertices.length) % vertices.length];
+      final curr = vertices[i];
+      final next = vertices[(i + 1) % vertices.length];
+
+      final toPrev = prev - curr;
+      final toNext = next - curr;
+      final prevLen = toPrev.distance;
+      final nextLen = toNext.distance;
+
+      if (prevLen == 0 || nextLen == 0) {
+        continue;
+      }
+
+      final double r = radius.clamp(
+        0.0,
+        (prevLen < nextLen ? prevLen : nextLen) / 2,
+      );
+
+      final start = curr + toPrev / prevLen * r;
+      final end = curr + toNext / nextLen * r;
+
+      if (i == 0) {
+        path.moveTo(start.dx, start.dy);
+      } else {
+        path.lineTo(start.dx, start.dy);
+      }
+
+      path.quadraticBezierTo(curr.dx, curr.dy, end.dx, end.dy);
+    }
+
+    path.close();
+    return path;
+  }
 }

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:roll_the_ball/models/polygon.dart';
 
 class PolygonClipper extends CustomClipper<Path> {
-  final List<Offset> points;
+  Polygon polygon;
 
-  PolygonClipper({super.reclip, required this.points});
+  PolygonClipper({super.reclip, required this.polygon});
   @override
   Path getClip(Size size) {
-    if (points.isEmpty) {
+    if (polygon.points.isEmpty) {
       return Path()..addRect(Offset.zero & size);
     }
 
-    final Path path = Path()..moveTo(points.first.dx, points.first.dy);
-    for (final Offset point in points.skip(1)) {
-      path.lineTo(point.dx, point.dy);
-    }
+    final Path path = polygon.buildRoundedPath(12);
     path.close();
     return path;
   }
