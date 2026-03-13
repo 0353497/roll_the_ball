@@ -65,6 +65,7 @@ dus ik heb getters gemaakt die de top en onderste punt van de muur berekenen op 
 center = positie van de muur
 deze formules zijn als volgt:
 $$ topPunt.x = center.x + (cos(muur.huidigeRotatie) * muur.lengte) $$
+
 $$ topPunt.y = center.y + (sin(muur.huidigeRotatie) * muur.lengte) $$
 in dart ziet dat er zo uit:
 ```dart
@@ -78,6 +79,7 @@ in dart ziet dat er zo uit:
 ```
 
 $$ onderstePunt.x = center.x + (cos(muur.huidigeRotatie + 180) * muur.lengte) $$
+
 $$ onderstePunt.y = center.y + (sin(muur.huidigeRotatie + 180) * muur.lengte) $$
 
 ```dart
@@ -93,8 +95,10 @@ $$ onderstePunt.y = center.y + (sin(muur.huidigeRotatie + 180) * muur.lengte) $$
 daarna moet ik de normaal vector van de muur berekenen, dat gaat met deze formules:
 $$ normaalVector.x = cos(muur.huidigeRotatie + 90) $$
 $$ normaalVector.y = sin(muur.huidigeRotatie + 90) $$
-hierna heb ik het dot product nodig van de normaal vector en de velocity van de speler, dat gaat met deze formule:
+hierna heb ik het dot product nodig van de normaal vector en de velocity van de speler,
+dat gaat met deze formule:
 $$ dotProduct = (normaalVector.x * speler.velocity.dx) + (normaalVector.y * speler.velocity.dy) $$
+
 deze waarde heb ik nodig om de velocity van de speler aan te passen.
 voor de kracht van de muur op de speler moet ik de draaikracht van de muur berekenen.
 $$ draaikracht = (2 * pi) / singleRotationDuration.inMilliseconds $$
